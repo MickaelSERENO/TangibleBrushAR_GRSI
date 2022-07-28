@@ -70,7 +70,7 @@ Note that Rstudio can detect and install automatically all the required packages
     ./produce.sh
     ```
 * For OSX and Windows users (command lines):
-    * Run, via Rscript, the two scripts FirstStudy/main.R and SecondStudy/main.R. Note that you may have to change the default working directory to, respectively, FirstStudy/ and SecondStudy/ .
+    * Run, via Rscript, the two scripts ```FirstStudy/main.R``` and ```SecondStudy/main.R```. Note that you may have to change the default working directory to, respectively, ```FirstStudy/``` and ```SecondStudy/```.
     ```
     cd FirstStudy
     Rscript main.R

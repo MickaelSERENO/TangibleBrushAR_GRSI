@@ -1,1 +1,54 @@
 # Hybrid Touch/Tangible Spatial Selection in Augmented Reality -- GRSI
+
+This repository is there to document and allow to reproduce the statistical analysis we performed for the paper "Mickael Sereno, Stéphane Gosset, Lonni Besançon, Tobias Isenberg. Hybrid Touch/Tangible Spatial Selection in Augmented Reality. Computer Graphics Forum, Wiley, 2022, 41 (3), pp.403--415. ⟨10.1111/cgf.14550⟩. ⟨hal-03699232⟩" 
+Note that due to the non-use of a constant random seed, the generated images can vary slightly for every data analysis relying on bootstrapping (which relies on random sampling). The generated images, however, are stable and we took into consideration the "dance of statistical analysis"; https://www.aviz.fr/badstats#sec3 in our paper.
+
+The values provided in the tables found in the Appendix (Tables 2--13) are what we got for a single run of the scripts corresponding to the images we reported in the original paper.
+
+The paper can be find at https://hal.inria.fr/hal-03699232/document in open-access.
+The related OSF repositories are at https://osf.io/pwauq/ (First Study) and at https://osf.io/rvpuc/ (Second Study). 
+
+## Requirements:
+* R
+* Rstudio (for Windows and OSX users)
+* R packages:
+    * dplyr
+    * ggplot2
+    * reshape2
+    * data.table
+    * pracma
+
+Example for archlinux:
+```
+sudo pacman -Syu r
+
+R
+> install.packages("dplyr")
+> install.packages("ggplot2")
+> install.packages("reshape2")
+> install.packages("data.table")
+> install.packages("pracma")
+> Ctrl+D # to exit
+```
+
+Note that R studio can detect and install automatically all the required scripts by opening, via Rstudio, the scripts "FirstStudy/main.R" and "SecondStudy/main.R". Rstudio is not necessary for the good execution of the data analysis: Only Rscript (installed by default with your R environment) is.
+
+## Build:
+* For linux users, via command line:
+        * Make sure that you have "Rscript" installed in your system. It should normally come with the installation of the R environment.
+    * Run the bash script produce.sh
+* For Windows OSX and Windows users:
+    * Run separately the two scripts FirstStudy/main.R and SecondStudy/main.R via Rstudio. Note that you will have the change the default working directory to, respectively, FirstStudy/ and SecondStudy/
+
+## Output:
+* First Study:
+    * FirstStudy/ROutput
+* Second Study:
+    * SecondStudy/ROutput
+
+The generated images will correspond to the Figures 6--22, and Figures 22--23.
+
+## Additional notes:
+
+In this repository, we already extracted from the users' logs the csv files (FirstStudy/data/log/data.csv and SecondStudy/data/log/data.csv) we feed to the R scripts. The users' low level logs are available in the respective OSF repositories for analysts that want to perform additional data analysis and data mining on what the users did throughout the study.
+We tested all the scripts for R version 4.2.

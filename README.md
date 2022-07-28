@@ -30,7 +30,7 @@ We document and allow, in this repository, to reproduce the statistical analysis
 ## Random Seed Issue
 Note that due to the non-use of a constant random seed, the generated images can vary slightly for every data analysis relying on bootstrapping (which relies on random sampling). The generated images, however, are stable and we took into consideration the "dance of statistical analysis"; https://www.aviz.fr/badstats#sec3 in our paper.
 
-The values we provide in the tables Tables 2--13 (in the Appendix) are the values we got for a single run of the scripts that generated the images we reported in the original paper.
+The values we provide in the tables Tables 2-13 (in the appendix) are the values we got for a single run of the scripts that generated the images we reported in the original paper.
 
 ## Requirements
 
@@ -45,7 +45,7 @@ The values we provide in the tables Tables 2--13 (in the Appendix) are the value
 
 Note that those packages contain requirements that we also use. The R package manager will install automatically those requirements.
 
-Example for archlinux:
+Example for Arch Linux:
 ```
 sudo pacman -Syu r
 
@@ -58,7 +58,7 @@ R
 > Ctrl+D # to exit
 ```
 
-Note that Rstudio can detect and install automatically all the required packages by opening, via Rstudio, the scripts ```FirstStudy/main.R``` and ```SecondStudy/main.R```. Rstudio is not necessary to execute the data analysis, only Rscript (installed by default with your R environment, at least on the archlinux linux distribution) is.
+Note that Rstudio can detect and install automatically all the required packages by opening, via Rstudio, the scripts ```FirstStudy/main.R``` and ```SecondStudy/main.R```. Rstudio is not necessary to execute the data analysis, only Rscript is (installed by default with your R environment, at least on the Arch Linux distribution).
 
 ## Build
 
@@ -78,9 +78,9 @@ Note that Rstudio can detect and install automatically all the required packages
     Rscript main.R
     ```
 * For all users (GUI version):
-    * Run separately the two scripts FirstStudy/main.R and SecondStudy/main.R via Rstudio. Note that you may have to change the default working directory to, respectively, FirstStudy/ and SecondStudy/ .
+    * Run separately the two scripts ```FirstStudy/main.R``` and ```SecondStudy/main.R``` via Rstudio. Note that you may have to change the default working directory to, respectively, FirstStudy/ and SecondStudy/ .
 
-We tested all the scripts for R version 4.2 on archlinux 5.18.12-arch1-1.
+We tested all the scripts for R version 4.2 on Arch Linux 5.18.12-arch1-1.
 
 ## Output
 
@@ -89,7 +89,7 @@ All the PDFs are generated in:
 * ```FirstStudy/ROutput``` (For the first study related images)
 * ```SecondStudy/ROutput``` (For the second study related images)
 
-The generated images will correspond to the Figures 6--22 and Figures 22--23 we reported in the paper.
+The generated images will correspond to the Figures 6-22 and Figures 22-23 we reported in the paper.
 Generated images in the form of ```PW\*.pdf``` correspond to the pair-wise comparisons of the reported metrics in the paper. For instance, ```PWmcc.pdf``` corresponds to "pair-wise comparisons of the MCC score".
 
 ## Additional notes

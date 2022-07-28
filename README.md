@@ -89,11 +89,11 @@ All the PDFs are generated in:
 * ```FirstStudy/ROutput``` (For the first study related images)
 * ```SecondStudy/ROutput``` (For the second study related images)
 
-The generated images will correspond to the Figures 6-22 and Figures 22-23 we reported in the paper.
+The generated images will correspond to the Figures 6-20 and Figures 22-23 we reported in the paper.
 Generated images in the form of ```PW\*.pdf``` correspond to the pair-wise comparisons of the reported metrics in the paper. For instance, ```PWmcc.pdf``` corresponds to "pair-wise comparisons of the MCC score".
 
 ## Additional notes
 
-In this repository, we already extracted from the users' logs the CSV files (```FirstStudy/data/log/data.csv``` and ```SecondStudy/data/log/data.csv```) we feed to the R scripts. Those CSV files corresponds to the data we report per (user, trial, technique). The users' low level logs are available in the respective OSF repositories (The .tar.gz files in the directories ```Scripts/Python/logs``` for the first study related logs and ```Results/``` for the second study related logs) for analysts that want to perform additional data analysis and data mining on what the users did throughout the two studies.
+In this repository, we already extracted from the users' logs the CSV files (```FirstStudy/data/log/data.csv``` and ```SecondStudy/data/log/data.csv```) we feed to the R scripts. Those CSV files correspond to the data we report per triplet of (user, trial, technique). The users' low level logs are available in the respective OSF repositories (The .tar.gz files in the directories ```Scripts/Python/logs``` for the first study related logs and ```Results/``` for the second study related logs) for analysts that want to perform additional data analysis and data mining on what the users did throughout the two studies.
 
 We also manipulated Figures 19 (a) and 19 (b) (corresponding PDFs: ```SecondStudy/external.pdf```, ```SecondStudy/PWexternal.pdf```) to make them as space efficient as possible with a vector image editor (e.g., Inkscape). Those changes are cosmetic and we did not manipulate in any way the data. We did this to save space in the PDF due to the limited number of pages.

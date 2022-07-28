@@ -78,7 +78,7 @@ Note that Rstudio can detect and install automatically all the required packages
     Rscript main.R
     ```
 * For all users (GUI version):
-    * Run separately the two scripts ```FirstStudy/main.R``` and ```SecondStudy/main.R``` via Rstudio. Note that you may have to change the default working directory to, respectively, FirstStudy/ and SecondStudy/ .
+    * Run separately the two scripts ```FirstStudy/main.R``` and ```SecondStudy/main.R``` via Rstudio. Note that you may have to change the default working directory to, respectively, ```FirstStudy/``` and ```SecondStudy/```.
 
 We tested all the scripts for R version 4.2 on Arch Linux 5.18.12-arch1-1.
 

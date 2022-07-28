@@ -63,7 +63,7 @@ Note that Rstudio can detect and install automatically all the required packages
 ## Build
 
 * For Linux users, via command line:
-    * Make sure that you have "Rscript" installed in your system and that it is accessible via your PATH environment variable. It should normally come with the installation of the R environment in, e.g., /usr/bin/Rscript.
+    * Make sure that you have "Rscript" installed in your system and that it is accessible via your PATH environment variable. It should normally come with the installation of the R environment in, e.g., ```/usr/bin/Rscript```.
     * Run the bash script "./produce.sh". Note that you may have to change the default working directory to the root of this repository for this sh script to work:
     ```
     cd <repository>

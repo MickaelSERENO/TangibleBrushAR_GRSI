@@ -10,7 +10,7 @@ The related OSF repositories are at https://osf.io/pwauq/ (First Study) and at h
 
 ## Requirements:
 * R
-* Rstudio (for Windows and OSX users)
+* Rstudio (for Windows and OSX users. Linux users can also install it if they prefer to do everything with a graphical user interface (GUI))
 * R packages:
     * dplyr
     * ggplot2
@@ -36,8 +36,10 @@ Note that Rstudio can detect and install automatically all the required packages
 ## Build:
 * For linux users, via command line:
     * Make sure that you have "Rscript" installed in your system. It should normally come with the installation of the R environment.
-    * Run the bash script "./produce.sh"
-* For OSX and Windows users:
+    * Run the bash script "./produce.sh". Note that you may have to change the default working directory to the root of this repository for this sh script to work.
+* For OSX and Windows users (command lines):
+    * Run, via Rscript, the two scripts FirstStudy/main.R and SecondStudy/main.R. Note that you may have to change the default working directory to, respectively, FirstStudy/ and SecondStudy/ .
+* For all users (GUI version):
     * Run separately the two scripts FirstStudy/main.R and SecondStudy/main.R via Rstudio. Note that you may have to change the default working directory to, respectively, FirstStudy/ and SecondStudy/ .
 
 We tested all the scripts for R version 4.2.

@@ -42,6 +42,7 @@ The values we provide in the tables Tables 2--13 (in the Appendix) are the value
     * ```reshape2```
     * ```data.table```
     * ```pracma```
+
 Note that those packages contain requirements that we also use. The R package manager will install automatically those requirements.
 
 Example for archlinux:

@@ -92,6 +92,28 @@ All the PDFs are generated in:
 The generated images will correspond to the Figures 6-20 and Figures 22-23 we reported in the paper.
 Generated images in the form of ```PW\*.pdf``` correspond to the pair-wise comparisons of the reported metrics in the paper. For instance, ```PWmcc.pdf``` corresponds to "pair-wise comparisons of the MCC score".
 
+### Details
+
+File names under the form of {PW}<metrics>.pdf means both PWmetrics.pdf and metrics.pdf. In the paper, subfigure (a) refers to the metrics itself (metrics.pdf), and subfigure (b) refers to the pairwise comparisons (PWmetrics.pdf)
+
+* ```FirstStudy/ROutput/{PW}tct.pdf```             -> Figures 6  (a) and (b)
+* ```FirstStudy/ROutput/{PW}LearningEffect.pdf```  -> Figures 7  (a) and (b)
+* ```FirstStudy/ROutput/{PW}tlx.pdf```             -> Figures 8  (a) and (b)
+* ```FirstStudy/ROutput/{PW}mcc.pdf```             -> Figures 9  (a) and (b)
+* ```FirstStudy/ROutput/focus.pdf```               -> Figure  10
+* ```FirstStudy/ROutput/{PW}constraint.pdf```      -> Figures 11 (a) and (b)
+* ```FirstStudy/ROutput/rank.pdf```                -> Figure  12
+* ```SecondStudy/ROutput/{PW}tct.pdf```            -> Figures 13 (a) and (b)
+* ```SecondStudy/ROutput/{PW}LearningEffect.pdf``` -> Figures 14 (a) and (b)
+* ```SecondStudy/ROutput/{PW}tlx.pdf```            -> Figures 15 (a) and (b)
+* ```SecondStudy/ROutput/{PW}mcc.pdf```            -> Figures 16 (a) and (b)
+* ```SecondStudy/ROutput/{PW}constraint.pdf```     -> Figures 17 (a) and (b)
+* ```SecondStudy/ROutput/focus.pdf```              -> Figure  18
+* ```SecondStudy/ROutput/external.pdf```           -> Figure  19
+* ```SecondStudy/ROutput/rank.pdf```               -> Figure  20
+* ```FirstStudy/ROutput/{PW}f1.pdf```              -> Figures 22 (a) and (b)
+* ```SecondStudy/ROutput/{PW}f1.pdf```             -> Figures 23 (a) and (b)
+
 ## Additional notes
 
 In this repository, we already extracted from the users' logs the CSV files (```FirstStudy/data/log/data.csv``` and ```SecondStudy/data/log/data.csv```) we feed to the R scripts. Those CSV files correspond to the data we report per triplet of (user, trial, technique). The users' low level logs are available in the respective OSF repositories (The .tar.gz files in the directories ```Scripts/Python/logs``` for the first study related logs and ```Results/``` for the second study related logs) for analysts that want to perform additional data analysis and data mining on what the users did throughout the two studies.

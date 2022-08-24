@@ -7,6 +7,8 @@ library(dplyr)
 library(data.table)
 library(pracma)
 
+options(width=320)
+
 #'Generate the mean value of a list
 #'
 #'@param x the original dataset
@@ -55,18 +57,21 @@ plotStackedBarchart = function(d, maxAxis=NA, minAxis=NA, legendName="",
 
     g = g + labs(x = "", y = "", col=legendName, fill=legendName) + 
         scale_y_continuous(labels = scales::percent_format()) +
-        scale_fill_brewer(palette="Paired") +
+        scale_fill_brewer(palette="Dark2") +
         theme(plot.background = element_rect(fill = 'transparent', colour = 'transparent'),
               panel.background = element_rect(fill = 'transparent', colour = 'transparent'),
               plot.margin=grid::unit(c(0,0,0,0), "mm"),
-              axis.title = element_text(size = rel(1.2), colour = "black"),
-              axis.text  = element_text(size = rel(1.2), colour = "black"),
+              axis.title = element_text(size = rel(2.0), colour = "black"),
+              axis.text  = element_text(size = rel(2.0), colour = "black"),
               panel.grid.major   = element_line(colour = "#DDDDDD"),
               panel.grid.major.y = element_blank(), 
               panel.grid.minor.y = element_blank(),
               aspect.ratio = 3/4,
-              legend.title = element_text(size=14, face="bold"), 
-              legend.text  = element_text(size=12))
+              strip.text.x = element_text(size = 22),
+              legend.title = element_text(size=24, face="bold"), 
+              legend.text  = element_text(size=24),
+              legend.position = c(0.5, -0.35),
+              legend.direction = "horizontal")
     
     return(g)
 }
@@ -91,15 +96,15 @@ plotBarChart = function(d, maxAxis=NA, xLabel, yLabel, fillLabel)
         g = g + expand_limits(y = c(0, maxAxis))
 
     g = g + geom_bar(stat="identity", position=position_dodge(0.5), width=0.5)+
-        scale_fill_brewer(palette="Paired") +
+        scale_fill_brewer(palette="Dark2") +
         scale_x_discrete(name="", expand=c(0,0)) +
         scale_y_continuous(name="", breaks=seq.int(0, max(d[[yLabel]])+1, by=2), expand=c(0,0)) +
         coord_fixed(ratio = 0.5) +
         theme(plot.background = element_rect(fill = 'transparent', colour = 'transparent'),
               panel.background = element_rect(fill = 'transparent', colour = 'transparent'),
               plot.margin=grid::unit(c(0,0,0,0), "mm"),
-              axis.title = element_text(size = rel(1.2), colour = "black"),
-              axis.text  = element_text(size = rel(1.2), colour = "black"),
+              axis.title = element_text(size = rel(1.4), colour = "black"),
+              axis.text  = element_text(size = rel(1.4), colour = "black"),
               panel.grid.major   = element_line(colour = "#AAAAAA"),
               panel.grid.minor   = element_blank(),
               panel.grid.major.x = element_blank(),
@@ -147,22 +152,22 @@ plotListBootstrap = function(d, maxAxis=NA, minAxis=NA, isBarChart=FALSE, legend
     
     g = g + scale_x_discrete(name="", labels=unique(tr[[substitute(nameLabel)]]), expand=c(0, 0)) +
         scale_y_continuous(name="") + 
-        geom_errorbar(aes(ymin=get(lowerLabel), ymax=get(upperLabel)), width = 0, size = 0.5, position=position_dodge(width=0.5), stat="identity") +
+        geom_errorbar(aes(ymin=get(lowerLabel), ymax=get(upperLabel)), width = 0, size = 0.7, position=position_dodge(width=0.75), stat="identity") +
         labs(x = "", y = "", col=legendName, fill=legendName) + 
         coord_flip() +
-        scale_color_brewer(palette="Paired") +
+        scale_color_brewer(palette="Dark2") +
         theme(plot.background = element_rect(fill = 'transparent', colour = 'transparent'),
               panel.background = element_rect(fill = 'transparent', colour = 'transparent'),
               plot.margin=grid::unit(c(0,0,0,0), "mm"),
               axis.title = element_text(size = rel(1.4), colour = "black"),
-              axis.text  = element_text(size = rel(1.4), colour = "black"),
+              axis.text  = element_text(size = rel(1.2), colour = "black"),
               panel.grid.major   = element_line(colour = "#DDDDDD"),
               panel.grid.major.y = element_blank(), 
               panel.grid.minor.y = element_blank(),
               legend.title = element_text(size=16, face="bold"), 
               legend.text  = element_text(size=14),
-              aspect.ratio = nrow(tr)/50) +
-        geom_point(size=1.5, position=position_dodge(width=0.5))         # dots
+              aspect.ratio = nrow(tr)/70) + guides(colour = guide_legend(reverse = TRUE), size=guide_legend(reverse = TRUE),  fill=guide_legend(reverse = TRUE)) +
+        geom_point(size=1.7, position=position_dodge(width=0.75))         # dots
     
     return(g)
 }
@@ -236,21 +241,21 @@ plotBootstrap = function(d, maxAxis=NA, isBarChart=FALSE, brewerX=FALSE, useWith
         g = g + expand_limits(y = c(0, maxAxis))
 
     if(brewerX)
-        g = g + scale_colour_brewer(palette="Paired") 
+        g = g + scale_colour_brewer(palette="Dark2") 
     else
-        g = g + scale_fill_brewer(palette="Paired")
+        g = g + scale_fill_brewer(palette="Dark2")
 
-    g = g + theme(aspect.ratio = nrow(d)/25,
+    g = g + theme(aspect.ratio = nrow(d)/100,
                   plot.margin=grid::unit(c(0,0,0,0), "mm"),
                   plot.background = element_rect(fill = 'transparent', colour = 'transparent'),
                   panel.background = element_rect(fill = 'transparent', colour = 'transparent'),
-                  axis.title = element_text(size = rel(1.2), colour = "black"),
-                  axis.text  = element_text(size = rel(1.2), colour = "black"),
+                  axis.title = element_text(size = rel(1.4), colour = "black"),
+                  axis.text  = element_text(size = rel(1.4), colour = "black"),
                   legend.title = element_text(size=14, face="bold"), 
                   legend.text  = element_text(size=12),
                   panel.grid.major   = element_line(colour = "#DDDDDD"),
-                  panel.grid.major.y = element_blank(), 
-                  panel.grid.minor.y = element_blank())
+                  panel.grid.major.y = element_blank(),
+                  panel.grid.minor.y = element_blank()) + guides(colour = guide_legend(reverse = TRUE))
     
     return(g)
 }
@@ -267,7 +272,19 @@ bootstrapCI = function(data, statistic)
     b   = boot(data, statistic=statistic, R=5000)
     cis = boot.ci(b, conf=0.95, type="bca")
     
-    return(c(statistic(data), cis$bca[4], cis$bca[5]))
+    return(c(statistic(data), cis$bca[4], cis$bca[5], sd(data)))
+}
+
+#'Compute the standard deviation of a log-transformed log-normal distribution (like TCT)
+#'See https://en.wikipedia.org/wiki/Standard_deviation
+computeLogNormalSD = function(x)
+{
+    mu       = mean(x)
+    sigmaSq  = var(x)
+    E        = exp(2*mu + sigmaSq)
+    variance = E*(exp(sigmaSq)-1)
+    
+    return(sqrt(variance))
 }
 
 #'Compute the overall bootstrap of x containing all the data to bootstrap from
@@ -280,30 +297,30 @@ bootstrapCI = function(data, statistic)
 #'Column Format: "mcc", "mccMin", "mccMax", "f1", f1Min", f1Max","tct", "tctMin", "tctMax", "nbOp", "nbOpMin", and "nbOpMax"
 computeOverallBootstrap = function(x)
 {
-    colNames = c("mcc" ,       "mccMin" ,       "mccMax",
-                 "f1"  ,       "f1Min"  ,       "f1Max",
-                 "tct" ,       "tctMin" ,       "tctMax", 
-                 "nbOp",       "nbOpMin",       "nbOpMax",
-                 "constraint", "constraintMin", "constraintMax",
-                 "totalConstraint", "totalConstraintMin", "totalConstraintMax")
+    colNames = c("mcc" ,       "mccMin" ,       "mccMax", "mccSD",
+                 "f1"  ,       "f1Min"  ,       "f1Max",  "f1SD",
+                 "tct" ,       "tctMin" ,       "tctMax", "tctSD",
+                 "nbOp",       "nbOpMin",       "nbOpMax", "nbOpSD",
+                 "constraint", "constraintMin", "constraintMax", "constraintSD",
+                 "totalConstraint", "totalConstraintMin", "totalConstraintMax", "totalConstraintSD")
 
     #Perform the analysis
     mccBootstrap        = bootstrapCI(x$meanMcc, meanFunc)
     f1Bootstrap         = bootstrapCI(x$meanF1, meanFunc)
     tctBootstrap        = t.test(x$meanLogTCT, conf.level = 0.95)
-    tctBootstrap        = c(exp(mean(x$meanLogTCT)), exp(tctBootstrap$conf.int[1]), exp(tctBootstrap$conf.int[2]))
+    tctBootstrap        = c(exp(mean(x$meanLogTCT)), exp(tctBootstrap$conf.int[1]), exp(tctBootstrap$conf.int[2]), computeLogNormalSD(x$meanLogTCT))
     
     if(length(unique(x$meanInter + x$meanUnion + x$meanMinus)) == 1)
-        opBootstrap     = c(mean(x$meanInter + x$meanUnion + x$meanMinus), mean(x$meanInter + x$meanUnion + x$meanMinus), mean(x$meanInter + x$meanUnion + x$meanMinus))
+        opBootstrap     = c(mean(x$meanInter + x$meanUnion + x$meanMinus), mean(x$meanInter + x$meanUnion + x$meanMinus), mean(x$meanInter + x$meanUnion + x$meanMinus), 0.0)
     else
         opBootstrap     = bootstrapCI(x$meanInter + x$meanUnion + x$meanMinus, meanFunc)
     if(length(unique(x$meanConstraintRatio)) == 1)
-        constraintBootstrap = c(mean(x$meanConstraintRatio), mean(x$meanConstraintRatio), mean(x$meanConstraintRatio))
+        constraintBootstrap = c(mean(x$meanConstraintRatio), mean(x$meanConstraintRatio), mean(x$meanConstraintRatio), 0.0)
     else
         constraintBootstrap = bootstrapCI(x$meanConstraintRatio, meanFunc)
     
     if(length(unique(x$meanConstraintRatio)) == 1)
-        totalConstraintBootstrap = c(mean(x$meanTotalConstraintRatio), mean(x$meanTotalConstraintRatio), mean(x$meanTotalConstraintRatio))
+        totalConstraintBootstrap = c(mean(x$meanTotalConstraintRatio), mean(x$meanTotalConstraintRatio), mean(x$meanTotalConstraintRatio), 0.0)
     else
         totalConstraintBootstrap = bootstrapCI(x$meanTotalConstraintRatio, meanFunc)
     
@@ -316,16 +333,16 @@ computeOverallBootstrap = function(x)
 
 computeOverallBootstrapTimePerTechniqueOrder = function(x)
 {
-    colNames = c("techniqueID", "tct", "tctMin", "tctMax")
+    colNames = c("techniqueID", "tct", "tctMin", "tctMax", "tctSD")
 
     tctFirstBootstrap = t.test(x$First, conf.level = 0.95)
-    tctFirstBootstrap = c(exp(mean(x$First)), exp(tctFirstBootstrap$conf.int[1]), exp(tctFirstBootstrap$conf.int[2]))
+    tctFirstBootstrap = c(exp(mean(x$First)), exp(tctFirstBootstrap$conf.int[1]), exp(tctFirstBootstrap$conf.int[2]), computeLogNormalSD(x$First))
     
     tctSecondBootstrap = t.test(x$Second, conf.level = 0.95)
-    tctSecondBootstrap = c(exp(mean(x$Second)), exp(tctSecondBootstrap$conf.int[1]), exp(tctSecondBootstrap$conf.int[2]))
+    tctSecondBootstrap = c(exp(mean(x$Second)), exp(tctSecondBootstrap$conf.int[1]), exp(tctSecondBootstrap$conf.int[2]), computeLogNormalSD(x$Second))
     
     tctThirdBootstrap = t.test(x$Third, conf.level = 0.95)
-    tctThirdBootstrap = c(exp(mean(x$Third)), exp(tctThirdBootstrap$conf.int[1]), exp(tctThirdBootstrap$conf.int[2]))
+    tctThirdBootstrap = c(exp(mean(x$Third)), exp(tctThirdBootstrap$conf.int[1]), exp(tctThirdBootstrap$conf.int[2]), computeLogNormalSD(x$Third))
     
     res = data.frame(cbind(c("First", "Second", "Third"), t(cbind(tctFirstBootstrap, tctSecondBootstrap, tctThirdBootstrap))))
     colnames(res) = colNames
@@ -344,11 +361,11 @@ computePWBootstrap = function(x)
     subDataNames = c("pairedMcc", "pairedF1", "pairedLogTCT")
 
     #Result metadata
-    subResNames  = c("mcc" , "mccMin" , "mccMax",
-                    "f1"  , "f1Min"  , "f1Max",
-                    "tct" , "tctMin" , "tctMax",
-                    "constraint", "constraintMin", "constraintMax",
-                    "totalConstraint", "totalConstraintMin", "totalConstraintMax")
+    subResNames  = c("mcc" , "mccMin" , "mccMax", "mccSD",
+                    "f1"  , "f1Min"  , "f1Max",   "f1SD",
+                    "tct" , "tctMin" , "tctMax",  "tctSD",
+                    "constraint", "constraintMin", "constraintMax", "constraintSD",
+                    "totalConstraint", "totalConstraintMin", "totalConstraintMax", "totalConstraintSD")
 
     colNames     = NULL
     res          = NULL
@@ -360,7 +377,7 @@ computePWBootstrap = function(x)
         mccBootstrap = bootstrapCI(x[[paste("pairedMcc",  tech, sep="")]], meanFunc)
         f1Bootstrap  = bootstrapCI(x[[paste("pairedF1",   tech, sep="")]], geomMeanFunc)
         tctBootstrap = t.test(x[[paste("pairedLogTCT",    tech, sep="")]], conf.level = 0.95)
-        tctBootstrap = exp(c(mean(x[[paste("pairedLogTCT", tech, sep="")]]), tctBootstrap$conf.int[[1]], tctBootstrap$conf.int[[2]]))
+        tctBootstrap = c(exp(mean(x[[paste("pairedLogTCT", tech, sep="")]])), exp(tctBootstrap$conf.int[[1]]), exp(tctBootstrap$conf.int[[2]]), computeLogNormalSD(x[[paste("pairedLogTCT", tech, sep="")]]))
         constraintBootstrap = bootstrapCI(x[[paste("pairedConstraint", tech, sep="")]], meanFunc)
         totalConstraintBootstrap = bootstrapCI(x[[paste("pairedTotalConstraint", tech, sep="")]], meanFunc)
         
@@ -374,7 +391,7 @@ computePWBootstrap = function(x)
 
 computePWBootstrapTimePerTechniqueOrder = function(x)
 {
-    subResNames  = c("tct" , "tctMin" , "tctMax")
+    subResNames  = c("tct" , "tctMin" , "tctMax", "tctSD")
     colNames = NULL
     res      = NULL
     
@@ -384,7 +401,7 @@ computePWBootstrapTimePerTechniqueOrder = function(x)
         colNames     = cbind(colNames, paste(subResNames, tech, sep=""))
         
         tctBootstrap = t.test(x[[tech]], conf.level = 0.95)
-        tctBootstrap = exp(c(mean(x[[tech]]), tctBootstrap$conf.int[[1]], tctBootstrap$conf.int[[2]]))
+        tctBootstrap = c(exp(mean(x[[tech]])), exp(tctBootstrap$conf.int[[1]]), exp(tctBootstrap$conf.int[[2]]), computeLogNormalSD(x[[tech]]))
         
         res = cbind(res, t(tctBootstrap))
     }
@@ -402,6 +419,13 @@ computeTimePerTechnique = function(x, key)
     res = data.frame(t(res))
     colnames(res) = c("First", "Second", "Third")
     return (res);
+}
+
+computeLogTCT = function(groupData, tct)
+{
+    #if(groupData$pID%%3 == groupData$techniqueID)
+    #    return(log(min(tct)*1e-6))
+    return (mean(log(tct*1e-6)))
 }
 
 #'Function parsing the log data of the users study
@@ -444,7 +468,7 @@ parseLog = function()
                                      meanF1              = mean(f1),
                                      meanConstraintRatio = mean(nbConstraint / (nbConstraint + nbUnconstraint)),
                                      meanTotalConstraintRatio = mean(nbTotalConstraint / (nbTotalConstraint + nbTotalUnconstraint)),
-                                     meanLogTCT          = mean(log(tct*1e-6)))
+                                     meanLogTCT          = computeLogTCT(cur_group(), tct))
     
     timePerTechniqueOrder = data %>% group_by(pID, datasetID) %>%
                                      summarise(computeTimePerTechnique(cur_data(), cur_group()))
@@ -508,10 +532,11 @@ parseLog = function()
     simpleBootstrapData$techniqueID[simpleBootstrapData$techniqueID==0] = "NA"
     simpleBootstrapData$techniqueID[simpleBootstrapData$techniqueID==1] = "RA"
     simpleBootstrapData$techniqueID[simpleBootstrapData$techniqueID==2] = "RF"
-    simpleBootstrapData$datasetID[simpleBootstrapData$datasetID==-1] = "overall"
+    simpleBootstrapData$datasetID[simpleBootstrapData$datasetID==-1] = "Overall"
     simpleBootstrapData$datasetID[simpleBootstrapData$datasetID==0]  = "Spring"
     simpleBootstrapData$datasetID[simpleBootstrapData$datasetID==1]  = "Cylinder"
     simpleBootstrapData$datasetID[simpleBootstrapData$datasetID==2]  = "Galaxies"
+    print(simpleBootstrapData)
     
     
     perDatasetBootstrapTechniqueOrderData = timePerTechniqueOrder %>% group_by(datasetID) %>% summarise(computeOverallBootstrapTimePerTechniqueOrder(cur_data()))
@@ -519,7 +544,7 @@ parseLog = function()
     overallBootstrapTechniqueOrderData$datasetID = -1
     
     simpleBootstrapTechniqueOrderData = rbind(perDatasetBootstrapTechniqueOrderData, overallBootstrapTechniqueOrderData)
-    simpleBootstrapTechniqueOrderData$datasetID[simpleBootstrapTechniqueOrderData$datasetID==-1] = "overall"
+    simpleBootstrapTechniqueOrderData$datasetID[simpleBootstrapTechniqueOrderData$datasetID==-1] = "Overall"
     simpleBootstrapTechniqueOrderData$datasetID[simpleBootstrapTechniqueOrderData$datasetID==0]  = "Spring"
     simpleBootstrapTechniqueOrderData$datasetID[simpleBootstrapTechniqueOrderData$datasetID==1]  = "Cylinder"
     simpleBootstrapTechniqueOrderData$datasetID[simpleBootstrapTechniqueOrderData$datasetID==2]  = "Galaxies"
@@ -538,23 +563,23 @@ parseLog = function()
 
     pwBootstrapData         = rbind(pwDatasetBootstrapData, pwOverallBootstrapData)
 
-    pwBootstrapData = mapply(c, pwBootstrapData %>% select(datasetID, mccT0T1, mccMinT0T1, mccMaxT0T1,
-                                                                      f1T0T1,  f1MinT0T1,  f1MaxT0T1,
-                                                                      tctT0T1, tctMinT0T1, tctMaxT0T1,
-                                                                      constraintT0T1, constraintMinT0T1, constraintMaxT0T1,
-                                                                      totalConstraintT0T1, totalConstraintMinT0T1, totalConstraintMaxT0T1) %>% mutate(ratioTechniqueID="NA / RA", differenceTechniqueID="NA - RA"),
+    pwBootstrapData = mapply(c, pwBootstrapData %>% select(datasetID, mccT0T1, mccMinT0T1, mccMaxT0T1, mccSDT0T1,
+                                                                      f1T0T1,  f1MinT0T1,  f1MaxT0T1,  f1SDT0T1,
+                                                                      tctT0T1, tctMinT0T1, tctMaxT0T1, tctSDT0T1,
+                                                                      constraintT0T1, constraintMinT0T1, constraintMaxT0T1, constraintSDT0T1,
+                                                                      totalConstraintT0T1, totalConstraintMinT0T1, totalConstraintMaxT0T1, totalConstraintSDT0T1) %>% mutate(ratioTechniqueID="NA / RA", differenceTechniqueID="NA - RA"),
 
-                                pwBootstrapData %>% select(datasetID, mccT0T2, mccMinT0T2, mccMaxT0T2,
-                                                                      f1T0T2,  f1MinT0T2,  f1MaxT0T2,
-                                                                      tctT0T2, tctMinT0T2, tctMaxT0T2,
-                                                                      constraintT0T2, constraintMinT0T2, constraintMaxT0T2,
-                                                                      totalConstraintT0T2, totalConstraintMinT0T2, totalConstraintMaxT0T2) %>% mutate(ratioTechniqueID="NA / RF", differenceTechniqueID="NA - RF"),
+                                pwBootstrapData %>% select(datasetID, mccT0T2, mccMinT0T2, mccMaxT0T2, mccSDT0T2,
+                                                                      f1T0T2,  f1MinT0T2,  f1MaxT0T2,  f1SDT0T2,
+                                                                      tctT0T2, tctMinT0T2, tctMaxT0T2, tctSDT0T2,
+                                                                      constraintT0T2, constraintMinT0T2, constraintMaxT0T2,  constraintSDT0T2,
+                                                                      totalConstraintT0T2, totalConstraintMinT0T2, totalConstraintMaxT0T2, totalConstraintSDT0T2) %>% mutate(ratioTechniqueID="NA / RF", differenceTechniqueID="NA - RF"),
                                              
-                                pwBootstrapData %>% select(datasetID, mccT1T2, mccMinT1T2, mccMaxT1T2,
-                                                                      f1T1T2,  f1MinT1T2,  f1MaxT1T2,
-                                                                      tctT1T2, tctMinT1T2, tctMaxT1T2,
-                                                                      constraintT1T2, constraintMinT1T2, constraintMaxT1T2,
-                                                                      totalConstraintT1T2, totalConstraintMinT1T2, totalConstraintMaxT1T2) %>% mutate(ratioTechniqueID="RA / RF", differenceTechniqueID="RA - RF"))
+                                pwBootstrapData %>% select(datasetID, mccT1T2, mccMinT1T2, mccMaxT1T2, mccSDT1T2,
+                                                                      f1T1T2,  f1MinT1T2,  f1MaxT1T2, f1SDT1T2,
+                                                                      tctT1T2, tctMinT1T2, tctMaxT1T2, tctSDT1T2,
+                                                                      constraintT1T2, constraintMinT1T2, constraintMaxT1T2, constraintSDT1T2,
+                                                                      totalConstraintT1T2, totalConstraintMinT1T2, totalConstraintMaxT1T2, totalConstraintSDT1T2) %>% mutate(ratioTechniqueID="RA / RF", differenceTechniqueID="RA - RF"))
 
     pwBootstrapData = data.frame(pwBootstrapData)
     colnames(pwBootstrapData)[colnames(pwBootstrapData) == "mccT0T1"]    = "mcc"
@@ -597,10 +622,12 @@ parseLog = function()
     pwBootstrapData$totalConstraintMin = as.double(pwBootstrapData$totalConstraintMin)
     pwBootstrapData$totalConstraintMax = as.double(pwBootstrapData$totalConstraintMax)
 
-    pwBootstrapData$datasetID[pwBootstrapData$datasetID==-1] = "overall"
+    pwBootstrapData$datasetID[pwBootstrapData$datasetID==-1] = "Overall"
     pwBootstrapData$datasetID[pwBootstrapData$datasetID==0]  = "Spring"
     pwBootstrapData$datasetID[pwBootstrapData$datasetID==1]  = "Cylinder"
     pwBootstrapData$datasetID[pwBootstrapData$datasetID==2]  = "Galaxies"
+    
+    print(pwBootstrapData)
     
     #Bootstrap learning effect as well
     
@@ -610,15 +637,12 @@ parseLog = function()
     pwOverallTimePerTechniqueOrderBootstrap = computePWBootstrapTimePerTechniqueOrder(pairedWiseOverallTimePerTechniqueOrder)
     pwOverallTimePerTechniqueOrderBootstrap$datasetID = -1
     
-    print(pwOverallTimePerTechniqueOrderBootstrap)
-    print(pwDatasetTimePerTechniqueOrderBootstrap)
     pwTimePerTechniqueOrderBootstrap        = rbind(pwDatasetTimePerTechniqueOrderBootstrap, pwOverallTimePerTechniqueOrderBootstrap)
     
-    print(pwTimePerTechniqueOrderBootstrap)
     
-    pwTimePerTechniqueOrderBootstrap = mapply(c, pwTimePerTechniqueOrderBootstrap %>% select(datasetID, tctT0T1, tctMinT0T1, tctMaxT0T1) %>% mutate(ratioTechniqueID="First / Second", differenceTechniqueID="First - Second"),
-                                                 pwTimePerTechniqueOrderBootstrap %>% select(datasetID, tctT0T2, tctMinT0T2, tctMaxT0T2) %>% mutate(ratioTechniqueID="First / Third", differenceTechniqueID="First - Third"),
-                                                 pwTimePerTechniqueOrderBootstrap %>% select(datasetID, tctT1T2, tctMinT1T2, tctMaxT1T2) %>% mutate(ratioTechniqueID="Second / Third", differenceTechniqueID="Second - Third"))
+    pwTimePerTechniqueOrderBootstrap = mapply(c, pwTimePerTechniqueOrderBootstrap %>% select(datasetID, tctT0T1, tctMinT0T1, tctMaxT0T1, tctSDT0T1) %>% mutate(ratioTechniqueID="First / Second", differenceTechniqueID="First - Second"),
+                                                 pwTimePerTechniqueOrderBootstrap %>% select(datasetID, tctT0T2, tctMinT0T2, tctMaxT0T2, tctSDT0T2) %>% mutate(ratioTechniqueID="First / Third", differenceTechniqueID="First - Third"),
+                                                 pwTimePerTechniqueOrderBootstrap %>% select(datasetID, tctT1T2, tctMinT1T2, tctMaxT1T2, tctSDT1T2) %>% mutate(ratioTechniqueID="Second / Third", differenceTechniqueID="Second - Third"))
     
     pwTimePerTechniqueOrderBootstrap = data.frame(pwTimePerTechniqueOrderBootstrap)
     
@@ -628,11 +652,12 @@ parseLog = function()
     pwTimePerTechniqueOrderBootstrap$tct    = as.double(pwTimePerTechniqueOrderBootstrap$tct)
     pwTimePerTechniqueOrderBootstrap$tctMin = as.double(pwTimePerTechniqueOrderBootstrap$tctMin)
     pwTimePerTechniqueOrderBootstrap$tctMax = as.double(pwTimePerTechniqueOrderBootstrap$tctMax)
-    pwTimePerTechniqueOrderBootstrap$datasetID[pwTimePerTechniqueOrderBootstrap$datasetID==-1] = "overall"
+    pwTimePerTechniqueOrderBootstrap$datasetID[pwTimePerTechniqueOrderBootstrap$datasetID==-1] = "Overall"
     pwTimePerTechniqueOrderBootstrap$datasetID[pwTimePerTechniqueOrderBootstrap$datasetID==0]  = "Spring"
     pwTimePerTechniqueOrderBootstrap$datasetID[pwTimePerTechniqueOrderBootstrap$datasetID==1]  = "Cylinder"
     pwTimePerTechniqueOrderBootstrap$datasetID[pwTimePerTechniqueOrderBootstrap$datasetID==2]  = "Galaxies"
     
+    print(pwTimePerTechniqueOrderBootstrap)
     
     
     # ------------------------------------------------------------------------------
@@ -680,17 +705,17 @@ parseLog = function()
 
     #F1
     print(glue("Generating {outputDir}/PWf1.pdf"))
-    g = plotListBootstrap(pwBootstrapData, minAxis = 0.75, maxAxis = 1.25, legendName = "Ratio", nameLabel=datasetID, idLabel=ratioTechniqueID, meanLabel=f1, lowerLabel=f1Min, upperLabel=f1Max) + geom_hline(yintercept = 1.0)
+    g = plotListBootstrap(pwBootstrapData, minAxis = 0.75, maxAxis = 1.25, legendName = "", nameLabel=datasetID, idLabel=ratioTechniqueID, meanLabel=f1, lowerLabel=f1Min, upperLabel=f1Max) + geom_hline(yintercept = 1.0)
     ggsave(glue("{outputDir}/PWf1.pdf"), plot=g, device="pdf")
 
     #TCT
     print(glue("Generating {outputDir}/PWtct.pdf"))
-    g = plotListBootstrap(pwBootstrapData, legendName = "Ratio", nameLabel=datasetID, idLabel=ratioTechniqueID, meanLabel=tct, lowerLabel=tctMin, upperLabel=tctMax) + geom_hline(yintercept = 1.0)
+    g = plotListBootstrap(pwBootstrapData, legendName = "", nameLabel=datasetID, idLabel=ratioTechniqueID, meanLabel=tct, lowerLabel=tctMin, upperLabel=tctMax) + geom_hline(yintercept = 1.0)
     ggsave(glue("{outputDir}/PWtct.pdf"), plot=g, device="pdf")
     
     #TCT -- Learning Effect
     print(glue("Generating {outputDir}/PWLearningEffect.pdf"))
-    g = plotListBootstrap(pwTimePerTechniqueOrderBootstrap, legendName = "Ratio", nameLabel=datasetID, idLabel=ratioTechniqueID, meanLabel=tct, lowerLabel=tctMin, upperLabel=tctMax) + geom_hline(yintercept = 1.0)
+    g = plotListBootstrap(pwTimePerTechniqueOrderBootstrap, legendName = "", nameLabel=datasetID, idLabel=ratioTechniqueID, meanLabel=tct, lowerLabel=tctMin, upperLabel=tctMax) + geom_hline(yintercept = 1.0)
     ggsave(glue("{outputDir}/PWLearningEffect.pdf"), plot=g, device="pdf")
     
     #Constraint
@@ -832,7 +857,8 @@ parseQuestionnaire = function()
                 tlxBootstrap = rbind(tlxBootstrap, bsData)
         }
     }
-    colnames(tlxBootstrap) = c("mean", "lower", "upper", "varName", "metric", "tech")
+    colnames(tlxBootstrap) = c("mean", "lower", "upper", "sd", "varName", "metric", "tech")
+    print(tlxBootstrap)
     
     dataNames  = c("1", "2", "3")
     dataLabels = c("Spring", "Cylinder", "Galaxies")
@@ -878,7 +904,7 @@ parseQuestionnaire = function()
                 pwTLXBootstrap = rbind(pwTLXBootstrap, bsData)
         }
     }
-    colnames(pwTLXBootstrap) = c("mean", "lower", "upper", "varName", "tech")
+    colnames(pwTLXBootstrap) = c("mean", "lower", "upper", "sd", "varName", "tech")
     print(pwTLXBootstrap)
 
     #Count the focus: Either Tablet (0) or HoloLens (1)
@@ -938,17 +964,17 @@ parseQuestionnaire = function()
         genColName = glue("general{techName}Rank")
 
         #Count
-        subAcc = t(data.frame(c(sum(data[[accColName]] == 1), "1", "Accuracy", techLabel),
-                              c(sum(data[[accColName]] == 2), "2", "Accuracy", techLabel),
-                              c(sum(data[[accColName]] == 3), "3", "Accuracy", techLabel)))
+        subAcc = t(data.frame(c(sum(data[[accColName]] == 1), "1st", "Accuracy", techLabel),
+                              c(sum(data[[accColName]] == 2), "2nd", "Accuracy", techLabel),
+                              c(sum(data[[accColName]] == 3), "3rd", "Accuracy", techLabel)))
 
-        subTct = t(data.frame(c(sum(data[[tctColName]] == 1), "1", "Speed", techLabel),
-                              c(sum(data[[tctColName]] == 2), "2", "Speed", techLabel),
-                              c(sum(data[[tctColName]] == 3), "3", "Speed", techLabel)))
+        subTct = t(data.frame(c(sum(data[[tctColName]] == 1), "1st", "Speed", techLabel),
+                              c(sum(data[[tctColName]] == 2), "2nd", "Speed", techLabel),
+                              c(sum(data[[tctColName]] == 3), "3rd", "Speed", techLabel)))
 
-        subGen = t(data.frame(c(sum(data[[genColName]] == 1), "1", "Overall", techLabel),
-                              c(sum(data[[genColName]] == 2), "2", "Overall", techLabel),
-                              c(sum(data[[genColName]] == 3), "3", "Overall", techLabel)))
+        subGen = t(data.frame(c(sum(data[[genColName]] == 1), "1st", "Overall", techLabel),
+                              c(sum(data[[genColName]] == 2), "2nd", "Overall", techLabel),
+                              c(sum(data[[genColName]] == 3), "3rd", "Overall", techLabel)))
 
         subRank = rbind(subAcc, subTct, subGen)
         if(is.null(rank))

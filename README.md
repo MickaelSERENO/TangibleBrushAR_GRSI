@@ -94,7 +94,7 @@ Generated images in the form of ```PW\*.pdf``` correspond to the pair-wise compa
 
 ### Details
 
-Filenames under the form of {PW}<metric>.pdf refer to both PW<metric>.pdf and <metric>.pdf. In the paper, subfigure (a) refers to the metric itself (<metric>.pdf), and subfigure (b) refers to the associated pairwise comparison (PW<metric>.pdf)
+Filenames under the form of {PW}_metric_.pdf refer to both PW_metric_.pdf and _metric_.pdf. In the paper, subfigure (a) refers to the metric itself (_metric_.pdf), and subfigure (b) refers to the associated pairwise comparison (PW_metric_.pdf)
 
 * ```FirstStudy/ROutput/{PW}tct.pdf```             -> Figures 6  (a) and (b)
 * ```FirstStudy/ROutput/{PW}LearningEffect.pdf```  -> Figures 7  (a) and (b)

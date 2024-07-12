@@ -15,6 +15,7 @@ We document and allow, in this repository, to reproduce the statistical analysis
   month       = jun,
   pages       = {403--415},
   doi         = {10.1111/cgf.14550},
+  shortdoi    = {10/gqq53j},
   doi_url     = {https://doi.org/10.1111/cgf.14550},
   oa_hal_url  = {https://hal.inria.fr/hal-03699232},
   osf_url     = {https://osf.io/qu634/},
